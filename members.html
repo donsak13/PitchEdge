@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PitchEdge — Περιοχή Μελών | Members Area</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e13;
+  --bg-2:#10161e;
+  --card:#151d27;
+  --line:#223041;
+  --chalk:#e8edf2;
+  --muted:#8fa0b3;
+  --pitch:#2fbf71;
+  --pitch-dim:#1d7a49;
+  --gold:#e6b64c;
+  --red:#e05b5b;
+  --display:'Oswald',sans-serif;
+  --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--chalk);font-family:var(--body);line-height:1.6;min-height:100vh}
+.lang-en{display:none}
+body.en .lang-en{display:inline}
+body.en .lang-el{display:none}
+
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,19,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.logo{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--chalk);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo b{color:var(--pitch)}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-right a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500}
+.nav-right a:hover{color:var(--chalk)}
+.lang-btn{background:var(--card);border:1px solid var(--line);color:var(--chalk);font-family:var(--display);font-size:.85rem;letter-spacing:.08em;padding:7px 14px;border-radius:6px;cursor:pointer}
+.lang-btn:hover{border-color:var(--pitch)}
+
+main{max-width:900px;margin:0 auto;padding:130px 24px 80px}
+.eyebrow{font-family:var(--display);letter-spacing:.28em;text-transform:uppercase;font-size:.8rem;color:var(--pitch);margin-bottom:10px}
+h1{font-family:var(--display);font-size:clamp(1.9rem,4.5vw,2.8rem);text-transform:uppercase;letter-spacing:.03em;font-weight:600;margin-bottom:8px}
+.sub{color:var(--muted);max-width:600px}
+
+/* ---------- gate ---------- */
+.gate{max-width:440px;margin:60px auto 0;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:38px 34px;text-align:center}
+.gate .lock{width:60px;height:60px;margin:0 auto 20px;border-radius:50%;background:rgba(47,191,113,.12);display:flex;align-items:center;justify-content:center}
+.gate h2{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:1.25rem;font-weight:600;margin-bottom:8px}
+.gate p{color:var(--muted);font-size:.9rem;margin-bottom:24px}
+.gate input{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:8px;color:var(--chalk);font-family:var(--body);font-size:1rem;padding:13px 16px;text-align:center;letter-spacing:.15em;margin-bottom:14px;outline:none}
+.gate input:focus{border-color:var(--pitch)}
+.gate button{width:100%;background:var(--pitch);color:#06130c;border:none;border-radius:8px;font-family:var(--display);text-transform:uppercase;letter-spacing:.1em;font-size:.95rem;font-weight:600;padding:14px;cursor:pointer;transition:transform .15s}
+.gate button:hover{transform:translateY(-2px)}
+.gate .err{color:var(--red);font-size:.85rem;margin-top:12px;min-height:1.3em}
+.gate .hint{font-size:.78rem;color:var(--muted);margin-top:18px;margin-bottom:0}
+
+/* ---------- members content ---------- */
+#members{display:none}
+.member-bar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin:40px 0 24px}
+.member-bar .t{font-family:var(--display);text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;color:var(--muted)}
+.logout{background:none;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:6px 14px;font-size:.8rem;cursor:pointer}
+.logout:hover{border-color:var(--red);color:var(--red)}
+.pick-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin-bottom:20px;position:relative;overflow:hidden}
+.pick-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--pitch)}
+.pick-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px}
+.pick-league{font-family:var(--display);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--pitch)}
+.pick-date{font-size:.8rem;color:var(--muted)}
+.pick-match{font-family:var(--display);font-size:1.35rem;font-weight:600;letter-spacing:.02em}
+.pick-row{display:flex;gap:14px;flex-wrap:wrap;margin:16px 0}
+.chip{background:var(--bg-2);border:1px solid var(--line);border-radius:8px;padding:8px 16px}
+.chip .k{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.chip .v{font-family:var(--display);font-size:1.1rem;font-weight:600}
+.chip.main .v{color:var(--pitch)}
+.pick-analysis{color:var(--muted);font-size:.92rem;border-top:1px solid var(--line);padding-top:14px}
+.empty{background:var(--card);border:1px dashed var(--line);border-radius:14px;padding:40px;text-align:center;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:26px 24px;text-align:center;color:var(--muted);font-size:.78rem;background:var(--bg-2)}
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a class="logo" href="index.html">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#2fbf71" stroke-width="1.6"/><path d="M12 7.2 15.6 9.8 14.2 14H9.8L8.4 9.8Z" stroke="#e8edf2" stroke-width="1.3" fill="none"/><path d="M12 2v5.2M15.6 9.8 20.8 8M14.2 14l3.2 4.4M9.8 14 6.6 18.4M8.4 9.8 3.2 8" stroke="#e8edf2" stroke-width="1" opacity=".7"/></svg>
+      Pitch<b>Edge</b>
+    </a>
+    <div class="nav-right">
+      <a href="index.html"><span class="lang-el">← Αρχική</span><span class="lang-en">← Home</span></a>
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="eyebrow"><span class="lang-el">Μόνο για Συνδρομητές</span><span class="lang-en">Subscribers Only</span></div>
+  <h1><span class="lang-el">Περιοχή Μελών</span><span class="lang-en">Members Area</span></h1>
+  <p class="sub"><span class="lang-el">Τα ενεργά προγνωστικά της περιόδου, με ανάλυση, απόδοση και προτεινόμενες μονάδες.</span><span class="lang-en">This period's active picks, with analysis, odds and recommended stakes.</span></p>
+
+  <!-- ---------- GATE ---------- -->
+  <div class="gate" id="gate">
+    <div class="lock">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2fbf71" stroke-width="1.8"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+    </div>
+    <h2><span class="lang-el">Κωδικός Πρόσβασης</span><span class="lang-en">Access Code</span></h2>
+    <p><span class="lang-el">Εισήγαγε τον κωδικό που έλαβες με τη συνδρομή σου.</span><span class="lang-en">Enter the code you received with your subscription.</span></p>
+    <input type="password" id="codeInput" autocomplete="off" placeholder="••••••••" onkeydown="if(event.key==='Enter')checkCode()">
+    <button onclick="checkCode()"><span class="lang-el">Είσοδος</span><span class="lang-en">Enter</span></button>
+    <div class="err" id="err"></div>
+    <p class="hint"><span class="lang-el">Δεν έχεις κωδικό; Δες τις συνδρομές στην <a href="index.html#plans" style="color:var(--pitch)">αρχική σελίδα</a>.</span><span class="lang-en">No code yet? See plans on the <a href="index.html#plans" style="color:var(--pitch)">home page</a>.</span></p>
+  </div>
+
+  <!-- ---------- MEMBERS CONTENT ---------- -->
+  <div id="members">
+    <div class="member-bar">
+      <div class="t"><span class="lang-el">Ενεργά Προγνωστικά</span><span class="lang-en">Active Picks</span> · <span id="pickCount"></span></div>
+      <button class="logout" onclick="logout()"><span class="lang-el">Αποσύνδεση</span><span class="lang-en">Log out</span></button>
+    </div>
+    <div id="pickList"></div>
+  </div>
+</main>
+
+<footer>
+  <span class="lang-el">Μόνο για ενημερωτικούς σκοπούς · 21+ · Παίξε υπεύθυνα · ΚΕΘΕΑ 1114</span>
+  <span class="lang-en">For informational purposes only · 21+ · Play responsibly · KETHEA helpline 1114</span>
+</footer>
+
+<script>
+/* =====================================================
+   ΡΥΘΜΙΣΕΙΣ ΠΡΟΣΒΑΣΗΣ
+   Άλλαξε τον κωδικό κάθε μήνα και στείλ' τον στους
+   ενεργούς συνδρομητές. Μπορείς να έχεις πολλούς
+   ταυτόχρονα (π.χ. παλιό + νέο σε περίοδο αλλαγής).
+   ===================================================== */
+const ACCESS_CODES = ["EDGE-0726"];
+
+/* =====================================================
+   ΕΝΕΡΓΑ ΠΡΟΓΝΩΣΤΙΚΑ — επεξεργάσου ΜΟΝΟ αυτόν τον πίνακα.
+   Όταν λήξει ένας αγώνας, μετάφερέ τον στον πίνακα PICKS
+   του index.html με το αποτέλεσμα, και σβήσ' τον από εδώ.
+   ===================================================== */
+const ACTIVE_PICKS = [
+  {
+    league:"Super League / Ελλάδα",
+    date:"2026-07-19 · 20:30",
+    match:"AEK – Aris",
+    pick:"1 (Home Win)",
+    odds:1.78,
+    stake:2,
+    analysis_el:"Η ΑΕΚ μετρά 5 σερί εντός έδρας νίκες, ο Άρης ταξιδεύει χωρίς τους δύο βασικούς στόπερ. Η απόδοση 1.78 δίνει αξία με βάση την εκτίμησή μας για 62% πιθανότητα.",
+    analysis_en:"AEK have won 5 straight at home; Aris travel without both first-choice centre-backs. At 1.78 the price offers value against our 62% estimate."
+  },
+  {
+    league:"Premier League / Αγγλία",
+    date:"2026-07-20 · 17:00",
+    match:"Newcastle – Tottenham",
+    pick:"Over 2.5",
+    odds:1.85,
+    stake:1.5,
+    analysis_el:"Δύο ομάδες με ανοιχτό ποδόσφαιρο και μέσο όρο 3.4 γκολ στις μεταξύ τους αναμετρήσεις της τελευταίας τριετίας. Και οι δύο πιέζουν ψηλά και αφήνουν χώρους.",
+    analysis_en:"Two open sides averaging 3.4 goals in head-to-heads over the last three seasons. Both press high and leave space behind."
+  }
+];
+
+/* ---------- gate logic ---------- */
+function store(k,v){try{sessionStorage.setItem(k,v)}catch(e){}}
+function read(k){try{return sessionStorage.getItem(k)}catch(e){return null}}
+
+function unlock(){
+  document.getElementById("gate").style.display="none";
+  document.getElementById("members").style.display="block";
+  renderPicks();
+}
+function checkCode(){
+  const v=document.getElementById("codeInput").value.trim().toUpperCase();
+  if(ACCESS_CODES.map(c=>c.toUpperCase()).includes(v)){
+    store("pe_auth","1");
+    unlock();
+  }else{
+    const err=document.getElementById("err");
+    err.innerHTML='<span class="lang-el">Λάθος κωδικός. Δοκίμασε ξανά.</span><span class="lang-en">Wrong code. Try again.</span>';
+    syncLang();
+  }
+}
+function logout(){
+  try{sessionStorage.removeItem("pe_auth")}catch(e){}
+  location.reload();
+}
+if(read("pe_auth")==="1") unlock();
+
+/* ---------- render picks ---------- */
+function renderPicks(){
+  const list=document.getElementById("pickList");
+  document.getElementById("pickCount").textContent=ACTIVE_PICKS.length;
+  if(!ACTIVE_PICKS.length){
+    list.innerHTML='<div class="empty"><span class="lang-el">Δεν υπάρχουν ενεργά προγνωστικά αυτή τη στιγμή. Οι επόμενες επιλογές έρχονται σύντομα.</span><span class="lang-en">No active picks right now. Next selections coming soon.</span></div>';
+  }else{
+    list.innerHTML=ACTIVE_PICKS.map(p=>`
+      <div class="pick-card">
+        <div class="pick-top">
+          <div class="pick-league">${p.league}</div>
+          <div class="pick-date">${p.date}</div>
+        </div>
+        <div class="pick-match">${p.match}</div>
+        <div class="pick-row">
+          <div class="chip main"><div class="k"><span class="lang-el">Πρόταση</span><span class="lang-en">Pick</span></div><div class="v">${p.pick}</div></div>
+          <div class="chip"><div class="k"><span class="lang-el">Απόδοση</span><span class="lang-en">Odds</span></div><div class="v">${p.odds.toFixed(2)}</div></div>
+          <div class="chip"><div class="k"><span class="lang-el">Μονάδες</span><span class="lang-en">Stake</span></div><div class="v">${p.stake} u</div></div>
+        </div>
+        <div class="pick-analysis"><span class="lang-el">${p.analysis_el}</span><span class="lang-en">${p.analysis_en}</span></div>
+      </div>`).join("");
+  }
+  syncLang();
+}
+
+/* ---------- language ---------- */
+function syncLang(){ /* re-apply after dynamic HTML insertion (CSS handles it via body class) */ }
+function toggleLang(){
+  const en=document.body.classList.toggle("en");
+  document.getElementById("langBtn").textContent = en? "ΕΛ":"EN";
+  document.documentElement.lang = en? "en":"el";
+}
+</script>
+</body>
+</html>
