@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PitchEdge — Football Predictions | Προγνωστικά Ποδοσφαίρου</title>
-<meta name="description" content="Premium football predictions with a fully transparent track record. Προγνωστικά ποδοσφαίρου με πλήρη διαφάνεια ταμείου.">
+<meta name="description" content="Premium football predictions with a fully transparent track record. Προγνωστικά ποδοσφαίρου με πλήρη διαφάνεια.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -61,11 +61,6 @@ h1 .accent{color:var(--pitch)}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-ghost{border:1px solid var(--line);color:var(--chalk)}
 .btn-ghost:hover{border-color:var(--pitch);color:var(--pitch)}
-.hero-strip{display:flex;gap:0;justify-content:center;margin-top:54px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:rgba(21,29,39,.75);backdrop-filter:blur(6px)}
-.hero-strip .cell{padding:18px 30px;border-right:1px solid var(--line)}
-.hero-strip .cell:last-child{border-right:none}
-.hero-strip .num{font-family:var(--display);font-size:1.7rem;font-weight:600;color:var(--pitch)}
-.hero-strip .lbl{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
 
 /* ---------- sections ---------- */
 section{padding:90px 24px}
@@ -75,37 +70,15 @@ section{padding:90px 24px}
 h2{font-family:var(--display);font-size:clamp(1.7rem,3.6vw,2.5rem);text-transform:uppercase;letter-spacing:.03em;font-weight:600}
 .sec-head p{color:var(--muted);max-width:640px;margin-top:12px}
 
-/* ---------- bankroll ---------- */
-#bankroll{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.bank-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:34px;align-items:stretch}
-.bank-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px}
-.bank-total{display:flex;flex-direction:column;justify-content:center}
-.bank-total .big{font-family:var(--display);font-size:clamp(2.6rem,6vw,4rem);font-weight:700;color:var(--pitch);line-height:1}
-.bank-total .big.neg{color:var(--red)}
-.bank-total .cap{color:var(--muted);text-transform:uppercase;letter-spacing:.14em;font-size:.78rem;margin-bottom:10px}
-.bank-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:28px}
-.stat{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
-.stat .v{font-family:var(--display);font-size:1.35rem;font-weight:600}
-.stat .k{font-size:.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
-.chart-card h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-weight:500;font-size:1rem;color:var(--muted);margin-bottom:16px}
-#chart{width:100%;height:auto;display:block}
-.bank-note{font-size:.8rem;color:var(--muted);margin-top:26px;border-left:3px solid var(--pitch-dim);padding-left:14px}
-
-/* ---------- picks table ---------- */
-.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--card)}
-table{width:100%;border-collapse:collapse;min-width:680px}
-th{font-family:var(--display);font-weight:500;text-transform:uppercase;letter-spacing:.1em;font-size:.75rem;color:var(--muted);text-align:left;padding:16px 18px;border-bottom:1px solid var(--line)}
-td{padding:14px 18px;border-bottom:1px solid var(--line);font-size:.92rem}
-tr:last-child td{border-bottom:none}
-.tag{display:inline-block;font-family:var(--display);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:5px}
-.tag.win{background:rgba(47,191,113,.15);color:var(--pitch)}
-.tag.loss{background:rgba(224,91,91,.14);color:var(--red)}
-.tag.push{background:rgba(230,182,76,.14);color:var(--gold)}
-td.pl-pos{color:var(--pitch);font-weight:600}
-td.pl-neg{color:var(--red);font-weight:600}
+/* ---------- launch note ---------- */
+#launch{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.launch-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:40px;text-align:center;max-width:760px;margin:0 auto}
+.launch-card .ico{width:64px;height:64px;margin:0 auto 20px;border-radius:16px;background:rgba(47,191,113,.12);display:flex;align-items:center;justify-content:center}
+.launch-card h2{margin-bottom:12px}
+.launch-card p{color:var(--muted);max-width:560px;margin:0 auto}
 
 /* ---------- plans ---------- */
-#plans{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+#plans{border-top:1px solid var(--line)}
 .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .plan{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:34px 30px;display:flex;flex-direction:column;position:relative;transition:transform .2s,border-color .2s}
 .plan:hover{transform:translateY(-4px);border-color:var(--pitch-dim)}
@@ -120,11 +93,15 @@ td.pl-neg{color:var(--red);font-weight:600}
 .plan .btn{text-align:center}
 
 /* ---------- how it works ---------- */
+#how{background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
 .step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:30px}
 .step .ico{width:52px;height:52px;border-radius:12px;background:rgba(47,191,113,.12);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
 .step h3{font-family:var(--display);text-transform:uppercase;letter-spacing:.05em;font-size:1.05rem;font-weight:600;margin-bottom:8px}
 .step p{color:var(--muted);font-size:.92rem}
+
+/* ---------- members teaser ---------- */
+.teaser-card{background:var(--card);border:1px solid var(--pitch-dim);border-radius:16px;padding:30px;display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap}
 
 /* ---------- footer ---------- */
 footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--bg-2)}
@@ -146,13 +123,10 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
 
 /* ---------- responsive ---------- */
 @media (max-width:900px){
-  .bank-grid,.plans-grid,.steps,.foot-grid{grid-template-columns:1fr}
+  .plans-grid,.steps,.foot-grid{grid-template-columns:1fr}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg-2);border-bottom:1px solid var(--line);flex-direction:column;padding:20px;gap:18px}
   .nav-links.open{display:flex}
   .burger{display:block}
-  .hero-strip{flex-direction:column}
-  .hero-strip .cell{border-right:none;border-bottom:1px solid var(--line)}
-  .hero-strip .cell:last-child{border-bottom:none}
 }
 </style>
 </head>
@@ -166,8 +140,6 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
     </a>
     <button class="burger" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
     <div class="nav-links">
-      <a href="#bankroll"><span class="lang-el">Ταμείο</span><span class="lang-en">Bankroll</span></a>
-      <a href="#picks"><span class="lang-el">Αποτελέσματα</span><span class="lang-en">Results</span></a>
       <a href="#plans"><span class="lang-el">Συνδρομές</span><span class="lang-en">Plans</span></a>
       <a href="#how"><span class="lang-el">Πώς λειτουργεί</span><span class="lang-en">How it works</span></a>
       <a href="members.html" style="color:var(--pitch);font-weight:600"><span class="lang-el">Περιοχή Μελών</span><span class="lang-en">Members</span></a>
@@ -204,79 +176,27 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
   <div class="hero-inner">
     <div class="eyebrow"><span class="lang-el">Premium Προγνωστικά Ποδοσφαίρου</span><span class="lang-en">Premium Football Predictions</span></div>
     <h1>
-      <span class="lang-el">Καθαρη Αναλυση.<br>Διαφανες <span class="accent">Ταμειο.</span></span>
-      <span class="lang-en">Sharp Analysis.<br>Transparent <span class="accent">Bankroll.</span></span>
+      <span class="lang-el">Καθαρη Αναλυση.<br>Διαφανες <span class="accent">Παιχνιδι.</span></span>
+      <span class="lang-en">Sharp Analysis.<br>Honest <span class="accent">Approach.</span></span>
     </h1>
     <p class="sub">
-      <span class="lang-el">Επιλεγμένα προγνωστικά από τα μεγαλύτερα ευρωπαϊκά πρωταθλήματα, με πλήρη καταγραφή κάθε στοιχήματος. Το ταμείο μας είναι δημόσιο — κερδισμένο ή χαμένο, όλα φαίνονται.</span>
-      <span class="lang-en">Hand-picked football tips from Europe's top leagues, with every single bet logged publicly. Our bankroll is out in the open — wins and losses alike.</span>
+      <span class="lang-el">Επιλεγμένα προγνωστικά από τα μεγαλύτερα ευρωπαϊκά πρωταθλήματα. Κάθε πρόταση καταγράφεται πριν την έναρξη του αγώνα — η υπηρεσία ξεκινά τώρα και το ταμείο θα χτίζεται δημόσια, βήμα βήμα.</span>
+      <span class="lang-en">Hand-picked football tips from Europe's top leagues. Every selection is logged before kick-off — the service is launching now, and the track record will be built publicly, step by step.</span>
     </p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#plans"><span class="lang-el">Δες τις Συνδρομές</span><span class="lang-en">View Plans</span></a>
-      <a class="btn btn-ghost" href="#bankroll"><span class="lang-el">Το Ταμείο μας</span><span class="lang-en">Our Track Record</span></a>
-    </div>
-    <div class="hero-strip">
-      <div class="cell"><div class="num" id="hs-profit">—</div><div class="lbl"><span class="lang-el">Συνολικό Κέρδος (μον.)</span><span class="lang-en">Total Profit (units)</span></div></div>
-      <div class="cell"><div class="num" id="hs-roi">—</div><div class="lbl">ROI / Yield</div></div>
-      <div class="cell"><div class="num" id="hs-count">—</div><div class="lbl"><span class="lang-el">Καταγεγραμμένα Στοιχήματα</span><span class="lang-en">Bets Logged</span></div></div>
+      <a class="btn btn-ghost" href="#how"><span class="lang-el">Πώς Λειτουργεί</span><span class="lang-en">How It Works</span></a>
     </div>
   </div>
 </section>
 
-<!-- ================= BANKROLL ================= -->
-<section id="bankroll">
+<!-- ================= LAUNCH NOTE ================= -->
+<section id="launch">
   <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow"><span class="lang-el">Πλήρης Διαφάνεια</span><span class="lang-en">Full Transparency</span></div>
-      <h2><span class="lang-el">Συνολικό Ταμείο μέχρι σήμερα</span><span class="lang-en">Total Bankroll to Date</span></h2>
-      <p><span class="lang-el">Κάθε πρόταση καταγράφεται πριν την έναρξη του αγώνα, με απόδοση και μονάδες. Τίποτα δεν σβήνεται εκ των υστέρων.</span><span class="lang-en">Every tip is logged before kick-off, with odds and stake. Nothing is deleted after the fact.</span></p>
-    </div>
-    <div class="bank-grid">
-      <div class="bank-card bank-total reveal">
-        <div class="cap"><span class="lang-el">Καθαρό Κέρδος (μονάδες)</span><span class="lang-en">Net Profit (units)</span></div>
-        <div class="big" id="bk-profit">—</div>
-        <div class="bank-stats">
-          <div class="stat"><div class="v" id="bk-roi">—</div><div class="k">Yield / ROI</div></div>
-          <div class="stat"><div class="v" id="bk-winrate">—</div><div class="k"><span class="lang-el">Ποσοστό Επιτυχίας</span><span class="lang-en">Win Rate</span></div></div>
-          <div class="stat"><div class="v" id="bk-staked">—</div><div class="k"><span class="lang-el">Συνολικό Ποντάρισμα</span><span class="lang-en">Total Staked</span></div></div>
-          <div class="stat"><div class="v" id="bk-avgodds">—</div><div class="k"><span class="lang-el">Μέση Απόδοση</span><span class="lang-en">Avg. Odds</span></div></div>
-        </div>
-        <div class="bank-note">
-          <span class="lang-el">Οι μονάδες (units) εκφράζουν ποσοστό του ταμείου, ώστε τα αποτελέσματα να είναι συγκρίσιμα ανεξάρτητα από το κεφάλαιο του καθενός. 1 μονάδα = 1% προτεινόμενου ταμείου.</span>
-          <span class="lang-en">Units express a percentage of bankroll, so results are comparable regardless of anyone's capital. 1 unit = 1% of recommended bankroll.</span>
-        </div>
-      </div>
-      <div class="bank-card chart-card reveal">
-        <h3><span class="lang-el">Πορεία Ταμείου (αθροιστικές μονάδες)</span><span class="lang-en">Bankroll Curve (cumulative units)</span></h3>
-        <svg id="chart" viewBox="0 0 520 320" role="img" aria-label="Cumulative profit chart"></svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ================= RECENT PICKS ================= -->
-<section id="picks">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <div class="eyebrow"><span class="lang-el">Ιστορικό</span><span class="lang-en">History</span></div>
-      <h2><span class="lang-el">Πρόσφατα Αποτελέσματα</span><span class="lang-en">Recent Results</span></h2>
-      <p><span class="lang-el">Οι τελευταίες καταγεγραμμένες προτάσεις. Οι συνδρομητές λαμβάνουν τις νέες επιλογές πριν την έναρξη.</span><span class="lang-en">The latest logged picks. Subscribers receive new selections before kick-off.</span></p>
-    </div>
-    <div class="tbl-wrap reveal">
-      <table id="picksTable">
-        <thead>
-          <tr>
-            <th><span class="lang-el">Ημ/νία</span><span class="lang-en">Date</span></th>
-            <th><span class="lang-el">Αγώνας</span><span class="lang-en">Match</span></th>
-            <th><span class="lang-el">Πρόταση</span><span class="lang-en">Pick</span></th>
-            <th><span class="lang-el">Απόδοση</span><span class="lang-en">Odds</span></th>
-            <th><span class="lang-el">Μονάδες</span><span class="lang-en">Stake</span></th>
-            <th><span class="lang-el">Αποτέλεσμα</span><span class="lang-en">Result</span></th>
-            <th>P/L</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <div class="launch-card reveal">
+      <div class="ico"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#2fbf71" stroke-width="1.7"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5 19 19M19 5l-2.5 2.5M7.5 16.5 5 19"/><circle cx="12" cy="12" r="3.5"/></svg></div>
+      <h2><span class="lang-el">Η Υπηρεσία Ξεκινά Τώρα</span><span class="lang-en">The Service Is Launching</span></h2>
+      <p><span class="lang-el">Δεν παρουσιάζουμε ιστορικό που δεν υπάρχει. Από την πρώτη μας πρόταση, κάθε αποτέλεσμα — κερδισμένο ή χαμένο — θα καταγράφεται δημόσια σε αυτή τη σελίδα. Η διαφάνεια χτίζεται από το μηδέν, μαζί σου.</span><span class="lang-en">We don't show a record that doesn't exist. From our very first tip, every result — win or loss — will be logged publicly on this page. Transparency built from zero, alongside you.</span></p>
     </div>
   </div>
 </section>
@@ -345,20 +265,20 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
       <div class="step reveal">
         <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#2fbf71" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 10h8M8 14h5"/></svg></div>
         <h3><span class="lang-el">Καταγραφή</span><span class="lang-en">Logging</span></h3>
-        <p><span class="lang-el">Κάθε αποτέλεσμα ενημερώνει δημόσια το ταμείο. Καμία επιλεκτική μνήμη, κανένα κρυμμένο χαμένο δελτίο.</span><span class="lang-en">Every result updates the public bankroll. No selective memory, no hidden losing slips.</span></p>
+        <p><span class="lang-el">Κάθε αποτέλεσμα θα ενημερώνει δημόσια το ταμείο. Καμία επιλεκτική μνήμη, κανένα κρυμμένο χαμένο δελτίο.</span><span class="lang-en">Every result will update the public bankroll. No selective memory, no hidden losing slips.</span></p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ================= MEMBERS TEASER ================= -->
-<section id="members-teaser" style="padding-top:0">
+<section id="members-teaser">
   <div class="wrap">
-    <div class="bank-card reveal" style="display:flex;align-items:center;justify-content:space-between;gap:26px;flex-wrap:wrap;border-color:var(--pitch-dim)">
+    <div class="teaser-card reveal">
       <div style="max-width:600px">
         <div class="eyebrow" style="margin-bottom:8px"><span class="lang-el">Ήδη Συνδρομητής;</span><span class="lang-en">Already a Member?</span></div>
         <h2 style="font-size:1.6rem"><span class="lang-el">Μπες στην Περιοχή Μελών</span><span class="lang-en">Enter the Members Area</span></h2>
-        <p style="color:var(--muted);margin-top:8px;font-size:.95rem"><span class="lang-el">Τα ενεργά προγνωστικά της εβδομάδας με πλήρη ανάλυση, απόδοση και προτεινόμενες μονάδες — διαθέσιμα με τον κωδικό συνδρομής σου.</span><span class="lang-en">This week's active picks with full analysis, odds and recommended stakes — available with your subscription code.</span></p>
+        <p style="color:var(--muted);margin-top:8px;font-size:.95rem"><span class="lang-el">Τα ενεργά προγνωστικά με πλήρη ανάλυση, απόδοση και προτεινόμενες μονάδες — διαθέσιμα με τον κωδικό συνδρομής σου.</span><span class="lang-en">The active picks with full analysis, odds and recommended stakes — available with your subscription code.</span></p>
       </div>
       <a class="btn btn-primary" href="members.html"><span class="lang-el">Είσοδος Μελών</span><span class="lang-en">Members Login</span></a>
     </div>
@@ -395,93 +315,8 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
 
 <script>
 /* =====================================================
-   ΔΕΔΟΜΕΝΑ ΤΑΜΕΙΟΥ — επεξεργάσου ΜΟΝΟ αυτόν τον πίνακα.
-   result: "win" | "loss" | "push"
-   Όλα τα στατιστικά και το γράφημα υπολογίζονται αυτόματα.
+   ΓΛΩΣΣΑ
    ===================================================== */
-const PICKS = [
-  /* Παράδειγμα μορφής — αντίγραψε τη γραμμή, σβήσε τα σχόλια (τα σύμβολα) και συμπλήρωσε:
-  {date:"2026-07-20", match:"AEK – Aris", pick:"1 (Home Win)", odds:1.78, stake:2, result:"win"},
-  */
-];
-
-/* ---------- υπολογισμοί ---------- */
-function pl(p){
-  if(p.result==="win")  return +(p.stake*(p.odds-1)).toFixed(2);
-  if(p.result==="loss") return -p.stake;
-  return 0;
-}
-const totalPL   = PICKS.reduce((s,p)=>s+pl(p),0);
-const totalStk  = PICKS.reduce((s,p)=>s+p.stake,0);
-const settled   = PICKS.filter(p=>p.result!=="push");
-const wins      = settled.filter(p=>p.result==="win").length;
-const roi       = totalStk? (totalPL/totalStk*100):0;
-const winRate   = settled.length? (wins/settled.length*100):0;
-const avgOdds   = PICKS.length? PICKS.reduce((s,p)=>s+p.odds,0)/PICKS.length:0;
-const fmt=(n,d=2)=> (n>0?"+":"")+n.toFixed(d);
-
-/* ---------- γέμισμα στατιστικών ---------- */
-document.getElementById("hs-profit").textContent = fmt(totalPL)+" u";
-document.getElementById("hs-roi").textContent    = fmt(roi,1)+"%";
-document.getElementById("hs-count").textContent  = PICKS.length;
-const bkP=document.getElementById("bk-profit");
-bkP.textContent = fmt(totalPL)+" units";
-if(totalPL<0) bkP.classList.add("neg");
-document.getElementById("bk-roi").textContent     = fmt(roi,1)+"%";
-document.getElementById("bk-winrate").textContent = winRate.toFixed(0)+"%";
-document.getElementById("bk-staked").textContent  = totalStk.toFixed(1)+" u";
-document.getElementById("bk-avgodds").textContent = avgOdds.toFixed(2);
-
-/* ---------- πίνακας (τελευταία 10, νεότερα πρώτα) ---------- */
-const tb=document.querySelector("#picksTable tbody");
-if(!PICKS.length){
-  tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:34px"><span class="lang-el">Το ιστορικό ξεκινά σύντομα — κάθε πρόταση θα καταγράφεται εδώ δημόσια.</span><span class="lang-en">Our public record starts soon — every pick will be logged here.</span></td></tr>';
-}
-[...PICKS].reverse().slice(0,10).forEach(p=>{
-  const v=pl(p);
-  const tag = p.result==="win"
-    ? '<span class="tag win"><span class="lang-el">Κερδισμένο</span><span class="lang-en">Won</span></span>'
-    : p.result==="loss"
-    ? '<span class="tag loss"><span class="lang-el">Χαμένο</span><span class="lang-en">Lost</span></span>'
-    : '<span class="tag push"><span class="lang-el">Επιστροφή</span><span class="lang-en">Void</span></span>';
-  tb.insertAdjacentHTML("beforeend",
-    `<tr><td>${p.date}</td><td>${p.match}</td><td>${p.pick}</td><td>${p.odds.toFixed(2)}</td><td>${p.stake} u</td><td>${tag}</td>
-     <td class="${v>0?'pl-pos':v<0?'pl-neg':''}">${v===0?"0.00":fmt(v)}</td></tr>`);
-});
-
-/* ---------- γράφημα αθροιστικού ταμείου ---------- */
-(function(){
-  const svg=document.getElementById("chart");
-  const W=520,H=320,padL=44,padR=14,padT=16,padB=30;
-  let cum=0; const pts=[0].concat(PICKS.map(p=>cum+=pl(p)));
-  if(pts.length<2) pts.push(0); /* κενό ταμείο: επίπεδη γραμμή στο μηδέν */
-  const min=Math.min(0,...pts), max=Math.max(...pts,1);
-  const x=i=> padL+(W-padL-padR)*i/(pts.length-1);
-  const y=v=> padT+(H-padT-padB)*(1-(v-min)/(max-min||1));
-  let grid="";
-  const stepCount=4;
-  for(let g=0;g<=stepCount;g++){
-    const v=min+(max-min)*g/stepCount, yy=y(v);
-    grid+=`<line x1="${padL}" y1="${yy}" x2="${W-padR}" y2="${yy}" stroke="#223041" stroke-width="1"/>
-           <text x="${padL-8}" y="${yy+4}" fill="#8fa0b3" font-size="11" text-anchor="end" font-family="Inter">${v.toFixed(0)}</text>`;
-  }
-  const line=pts.map((v,i)=>`${i?"L":"M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
-  const area=line+` L${x(pts.length-1).toFixed(1)},${y(min)} L${x(0)},${y(min)} Z`;
-  const zero=y(0);
-  svg.innerHTML=`
-    <defs><linearGradient id="ag" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#2fbf71" stop-opacity=".35"/>
-      <stop offset="1" stop-color="#2fbf71" stop-opacity="0"/>
-    </linearGradient></defs>
-    ${grid}
-    <line x1="${padL}" y1="${zero}" x2="${W-padR}" y2="${zero}" stroke="#8fa0b3" stroke-dasharray="4 4" stroke-width="1"/>
-    <path d="${area}" fill="url(#ag)"/>
-    <path d="${line}" fill="none" stroke="#2fbf71" stroke-width="2.5" stroke-linejoin="round"/>
-    ${pts.map((v,i)=>`<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3" fill="#0a0e13" stroke="#2fbf71" stroke-width="2"/>`).join("")}
-  `;
-})();
-
-/* ---------- γλώσσα ---------- */
 function toggleLang(){
   const en=document.body.classList.toggle("en");
   document.getElementById("langBtn").textContent = en? "ΕΛ":"EN";
