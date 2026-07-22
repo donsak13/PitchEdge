@@ -400,18 +400,9 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
    Όλα τα στατιστικά και το γράφημα υπολογίζονται αυτόματα.
    ===================================================== */
 const PICKS = [
-  {date:"2026-06-02", match:"Panathinaikos – PAOK",        pick:"Over 2.5",       odds:1.95, stake:2, result:"win"},
-  {date:"2026-06-05", match:"Real Madrid – Sevilla",       pick:"1 (Home Win)",   odds:1.55, stake:3, result:"win"},
-  {date:"2026-06-08", match:"Inter – Roma",                pick:"Under 3.5",      odds:1.70, stake:2, result:"loss"},
-  {date:"2026-06-12", match:"Arsenal – Chelsea",           pick:"BTTS / GG",      odds:1.80, stake:2, result:"win"},
-  {date:"2026-06-15", match:"Bayern – Dortmund",           pick:"Over 3.5",       odds:2.10, stake:1.5, result:"loss"},
-  {date:"2026-06-19", match:"Olympiacos – AEK",            pick:"X2 (Double)",    odds:1.85, stake:2, result:"win"},
-  {date:"2026-06-23", match:"PSG – Marseille",             pick:"1 & Over 2.5",   odds:2.05, stake:1.5, result:"win"},
-  {date:"2026-06-27", match:"Atletico – Valencia",         pick:"Under 2.5",      odds:1.90, stake:2, result:"win"},
-  {date:"2026-07-01", match:"Liverpool – Man City",        pick:"Over 2.5",       odds:1.65, stake:2.5, result:"loss"},
-  {date:"2026-07-06", match:"Juventus – Napoli",           pick:"1X (Double)",    odds:1.50, stake:3, result:"win"},
-  {date:"2026-07-10", match:"Ajax – Feyenoord",            pick:"BTTS / GG",      odds:1.72, stake:2, result:"win"},
-  {date:"2026-07-14", match:"Benfica – Porto",             pick:"Draw No Bet 1",  odds:1.88, stake:2, result:"push"}
+  /* Παράδειγμα μορφής — αντίγραψε τη γραμμή, σβήσε τα σχόλια (τα σύμβολα) και συμπλήρωσε:
+  {date:"2026-07-20", match:"AEK – Aris", pick:"1 (Home Win)", odds:1.78, stake:2, result:"win"},
+  */
 ];
 
 /* ---------- υπολογισμοί ---------- */
@@ -443,6 +434,9 @@ document.getElementById("bk-avgodds").textContent = avgOdds.toFixed(2);
 
 /* ---------- πίνακας (τελευταία 10, νεότερα πρώτα) ---------- */
 const tb=document.querySelector("#picksTable tbody");
+if(!PICKS.length){
+  tb.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--muted);padding:34px"><span class="lang-el">Το ιστορικό ξεκινά σύντομα — κάθε πρόταση θα καταγράφεται εδώ δημόσια.</span><span class="lang-en">Our public record starts soon — every pick will be logged here.</span></td></tr>';
+}
 [...PICKS].reverse().slice(0,10).forEach(p=>{
   const v=pl(p);
   const tag = p.result==="win"
@@ -460,6 +454,7 @@ const tb=document.querySelector("#picksTable tbody");
   const svg=document.getElementById("chart");
   const W=520,H=320,padL=44,padR=14,padT=16,padB=30;
   let cum=0; const pts=[0].concat(PICKS.map(p=>cum+=pl(p)));
+  if(pts.length<2) pts.push(0); /* κενό ταμείο: επίπεδη γραμμή στο μηδέν */
   const min=Math.min(0,...pts), max=Math.max(...pts,1);
   const x=i=> padL+(W-padL-padR)*i/(pts.length-1);
   const y=v=> padT+(H-padT-padB)*(1-(v-min)/(max-min||1));
