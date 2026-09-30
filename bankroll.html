@@ -67,8 +67,9 @@ main{max-width:1180px;margin:0 auto;padding:130px 24px 70px}
 .chart{position:relative}
 .chart svg{width:100%;height:auto;display:block}
 .empty{color:var(--muted);text-align:center;padding:50px 10px}
-.formula{font-family:'Courier New',monospace;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:16px 18px;color:var(--chalk);font-size:.92rem;line-height:1.9;overflow-x:auto}
-.formula em{color:var(--pitch);font-style:normal}
+.formula{font-family:'Inter',system-ui,sans-serif;font-weight:700;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px 20px;color:#fff;font-size:1.05rem;line-height:2.1;overflow-x:auto;letter-spacing:.01em}
+.formula em{color:var(--pitch);font-style:normal;font-weight:800}
+.formula .note{color:var(--muted);font-weight:500;font-size:.88rem}
 .cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
 .cols .card{margin-bottom:0}
 .calc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -132,9 +133,9 @@ footer{border-top:1px solid var(--line);padding:30px 24px;background:var(--bg-2)
     <div class="card">
       <h2><span class="lang-el">Η Φόρμουλα</span><span class="lang-en">The Formula</span></h2>
       <div class="formula">
-        <em>P</em> = stake × (odds − 1)&nbsp;&nbsp;<span style="color:var(--muted)">// <span class="lang-el">κερδισμένο</span><span class="lang-en">win</span></span><br>
-        <em>P</em> = − stake&nbsp;&nbsp;<span style="color:var(--muted)">// <span class="lang-el">χαμένο</span><span class="lang-en">loss</span></span><br>
-        <em>P</em> = 0&nbsp;&nbsp;<span style="color:var(--muted)">// push</span><br>
+        <em>P</em> = stake × (odds − 1)&nbsp;&nbsp;<span class="note">// <span class="lang-el">κερδισμένο</span><span class="lang-en">win</span></span><br>
+        <em>P</em> = − stake&nbsp;&nbsp;<span class="note">// <span class="lang-el">χαμένο</span><span class="lang-en">loss</span></span><br>
+        <em>P</em> = 0&nbsp;&nbsp;<span class="note">// push</span><br>
         <em>Units Played</em> = Σ stake<br>
         <em>Bankroll</em> = Start + Σ P<br>
         <em>Yield %</em> = Σ P ÷ Units Played × 100<br>
