@@ -62,6 +62,32 @@ h1 .accent{color:var(--pitch)}
 .btn-ghost{border:1px solid var(--line);color:var(--chalk)}
 .btn-ghost:hover{border-color:var(--pitch);color:var(--pitch)}
 
+/* ---------- animated balls ---------- */
+.balls{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+.ball{position:absolute;display:block}
+.ball-in{position:absolute;inset:0;display:block;border-radius:50%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.6));animation:float var(--d,9s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.ball-in svg{display:block;width:100%;height:100%;border-radius:50%;animation:spin var(--s,14s) linear infinite}
+.ball.bounce .ball-in{animation-name:bounce;animation-timing-function:cubic-bezier(.3,0,.4,1)}
+.ball-in::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 30% 24%,rgba(255,255,255,.9) 0,rgba(255,255,255,.35) 10%,transparent 30%),radial-gradient(circle at 38% 32%,transparent 35%,rgba(0,0,0,.45) 72%,rgba(0,0,0,.85) 100%),radial-gradient(circle at 78% 82%,rgba(120,200,255,.22),transparent 35%);box-shadow:inset -8px -10px 18px rgba(0,0,0,.5),inset 3px 3px 8px rgba(255,255,255,.25)}
+.ball::before{content:"";position:absolute;left:8%;right:8%;bottom:-26%;height:16%;border-radius:50%;background:radial-gradient(ellipse,rgba(0,0,0,.95),rgba(0,0,0,.5) 45%,rgba(0,0,0,0) 72%);box-shadow:0 0 18px 4px rgba(47,191,113,.18);filter:blur(3px);animation:gshadow var(--d,9s) ease-in-out infinite;animation-delay:var(--dl,0s)}
+.ball.bounce::before{animation-name:gshadowb;animation-timing-function:cubic-bezier(.3,0,.4,1)}
+.ball.nfl .ball-in{border-radius:50%;perspective:400px;animation-name:tumble;animation-timing-function:ease-in-out}
+.ball.nfl .ball-in svg{animation:none}
+.b1{width:92px;height:92px;left:7%;top:22%;--d:8s;--s:16s}
+.b2{width:86px;height:86px;right:8%;top:18%;--d:6s;--s:20s;--dl:-2s}
+.b3{width:104px;height:64px;left:12%;bottom:14%;--d:10s;--s:12s;--dl:-4s}
+.b4{width:70px;height:70px;right:14%;bottom:16%;--d:7s;--s:9s;--dl:-1s}
+.b5{width:54px;height:54px;left:30%;top:12%;--d:11s;--s:18s;--dl:-5s;opacity:.55}
+.b6{width:66px;height:42px;right:28%;bottom:8%;--d:9s;--s:15s;--dl:-3s;opacity:.6}
+@keyframes float{0%,100%{transform:translateY(0) translateX(0)}50%{transform:translateY(-28px) translateX(12px)}}
+@keyframes bounce{0%,100%{transform:translateY(0)}45%,50%{transform:translateY(-70px)}}
+@keyframes gshadow{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(.7);opacity:.55}}
+@keyframes gshadowb{0%,100%{transform:scale(1);opacity:1}45%,50%{transform:scale(.55);opacity:.35}}
+@keyframes tumble{0%{transform:translateY(0) rotate(-18deg) rotateX(0)}50%{transform:translateY(-28px) rotate(-8deg) rotateX(180deg)}100%{transform:translateY(0) rotate(-18deg) rotateX(360deg)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (max-width:760px){.b5,.b6{display:none}.b1{left:2%;top:13%;width:64px;height:64px}.b2{right:2%;top:11%;width:60px;height:60px}.b3{left:3%;bottom:6%;width:76px;height:48px}.b4{right:3%;bottom:7%;width:52px;height:52px}}
+@media (prefers-reduced-motion:reduce){.ball-in,.ball-in svg,.ball::before{animation:none!important}}
+
 /* ---------- sections ---------- */
 section{padding:90px 24px}
 .wrap{max-width:1180px;margin:0 auto}
@@ -142,6 +168,7 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
     <div class="nav-links">
       <a href="#plans"><span class="lang-el">Συνδρομές</span><span class="lang-en">Plans</span></a>
       <a href="#how"><span class="lang-el">Πώς λειτουργεί</span><span class="lang-en">How it works</span></a>
+      <a href="bankroll.html"><span class="lang-el">Ταμείο</span><span class="lang-en">Bankroll</span></a>
       <a href="members.html" style="color:var(--pitch);font-weight:600"><span class="lang-el">Περιοχή Μελών</span><span class="lang-en">Members</span></a>
       <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
     </div>
@@ -172,6 +199,34 @@ footer{border-top:1px solid var(--line);padding:50px 24px 30px;background:var(--
         <path d="M500 600 A 100 100 0 0 1 700 600"/>
       </g>
     </svg>
+  </div>
+  <div class="balls" aria-hidden="true">
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <symbol id="ball-soccer" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" fill="#f4f6f8" stroke="#1b2430" stroke-width="2"/>
+          <polygon points="50,33 65,44 59,62 41,62 35,44" fill="#1b2430"/>
+          <g stroke="#1b2430" stroke-width="2.4" fill="none"><path d="M50 33V6M65 44l26-9M59 62l16 22M41 62L25 84M35 44L9 35"/></g>
+          <g fill="#1b2430"><polygon points="50,2 62,8 58,14 42,14 38,8"/><polygon points="96,40 94,54 86,52 84,38 90,34"/><polygon points="4,40 6,54 14,52 16,38 10,34"/><polygon points="78,90 64,96 62,88 70,80 78,82"/><polygon points="22,90 36,96 38,88 30,80 22,82"/></g>
+        </symbol>
+        <radialGradient id="bb" cx=".35" cy=".3" r=".8"><stop offset="0" stop-color="#f08a3c"/><stop offset="1" stop-color="#b8480f"/></radialGradient>
+        <symbol id="ball-basket" viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="48" fill="url(#bb)"/>
+          <g stroke="#2a1205" stroke-width="2.6" fill="none"><circle cx="50" cy="50" r="48"/><path d="M50 2v96M2 50h96M16 16c22 20 22 48 0 68M84 16c-22 20-22 48 0 68"/></g>
+        </symbol>
+        <symbol id="ball-nfl" viewBox="0 0 160 100">
+          <ellipse cx="80" cy="50" rx="76" ry="44" fill="#7a3b1c" stroke="#3a1a0a" stroke-width="3"/>
+          <path d="M22 22c-6 18-6 38 0 56M138 22c6 18 6 38 0 56" stroke="#f4f6f8" stroke-width="5" fill="none"/>
+          <g stroke="#f4f6f8" stroke-width="4" stroke-linecap="round"><path d="M80 34v32M66 42v16M94 42v16M52 44v12M108 44v12"/><path d="M50 50h60"/></g>
+        </symbol>
+      </defs>
+    </svg>
+    <span class="ball bounce b1"><span class="ball-in"><svg viewBox="0 0 100 100"><use href="#ball-soccer"/></svg></span></span>
+    <span class="ball b2"><span class="ball-in"><svg viewBox="0 0 100 100"><use href="#ball-basket"/></svg></span></span>
+    <span class="ball nfl b3"><span class="ball-in"><svg viewBox="0 0 160 100"><use href="#ball-nfl"/></svg></span></span>
+    <span class="ball bounce b4"><span class="ball-in"><svg viewBox="0 0 100 100"><use href="#ball-basket"/></svg></span></span>
+    <span class="ball b5"><span class="ball-in"><svg viewBox="0 0 100 100"><use href="#ball-soccer"/></svg></span></span>
+    <span class="ball nfl b6"><span class="ball-in"><svg viewBox="0 0 160 100"><use href="#ball-nfl"/></svg></span></span>
   </div>
   <div class="hero-inner">
     <div class="eyebrow"><span class="lang-el">Premium Προγνωστικά Ποδοσφαίρου</span><span class="lang-en">Premium Football Predictions</span></div>

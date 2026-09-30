@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ταμείο — PitchEdge | Bankroll Tracker</title>
+<meta name="description" content="Το ταμείο της PitchEdge ανά units played — πλήρης διαφάνεια, κάθε στοίχημα καταγράφεται.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0e13;
+  --bg-2:#10161e;
+  --card:#151d27;
+  --line:#223041;
+  --chalk:#e8edf2;
+  --muted:#8fa0b3;
+  --pitch:#2fbf71;
+  --pitch-dim:#1d7a49;
+  --gold:#e6b64c;
+  --red:#e05b5b;
+  --display:'Oswald',sans-serif;
+  --body:'Inter',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--chalk);font-family:var(--body);line-height:1.6;overflow-x:hidden}
+
+/* ---------- language toggle ---------- */
+.lang-en{display:none}
+body.en .lang-en{display:inline}
+body.en .lang-el{display:none}
+
+/* ---------- header ---------- */
+header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(10,14,19,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+.logo{font-family:var(--display);font-size:1.45rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--chalk);text-decoration:none;display:flex;align-items:center;gap:10px}
+.logo svg{flex:none}
+.logo b{color:var(--pitch)}
+.nav-links{display:flex;align-items:center;gap:26px}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+.nav-links a:hover,.nav-links a:focus-visible{color:var(--chalk)}
+.lang-btn{background:var(--card);border:1px solid var(--line);color:var(--chalk);font-family:var(--display);font-size:.85rem;letter-spacing:.08em;padding:7px 14px;border-radius:6px;cursor:pointer;transition:border-color .2s}
+.lang-btn:hover{border-color:var(--pitch)}
+.burger{display:none;background:none;border:none;color:var(--chalk);font-size:1.6rem;cursor:pointer}
+
+
+.eyebrow{font-family:var(--display);letter-spacing:.28em;text-transform:uppercase;font-size:.8rem;color:var(--pitch);margin-bottom:12px}
+h1{font-family:var(--display);font-size:clamp(2rem,5vw,3.2rem);font-weight:700;text-transform:uppercase;letter-spacing:.02em;line-height:1.1}
+h2{font-family:var(--display);font-size:1.3rem;text-transform:uppercase;letter-spacing:.05em;font-weight:600;margin-bottom:14px}
+.btn{display:inline-block;font-family:var(--display);text-transform:uppercase;letter-spacing:.1em;font-size:.85rem;font-weight:600;padding:11px 22px;border-radius:8px;text-decoration:none;border:1px solid var(--line);background:none;color:var(--chalk);cursor:pointer}
+.btn:hover{border-color:var(--pitch);color:var(--pitch)}
+.btn-primary{background:var(--pitch);color:#06130c;border-color:var(--pitch)}
+.btn-primary:hover{color:#06130c;opacity:.9}
+main{max-width:1180px;margin:0 auto;padding:130px 24px 70px}
+.lead{color:var(--muted);max-width:680px;margin:14px 0 26px}
+.tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:26px}
+.tag{font-size:.78rem;color:var(--gold);border:1px solid var(--gold);border-radius:99px;padding:4px 12px;display:none}
+.tag.on{display:inline-block}
+.stats{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:26px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+.stat small{display:block;color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+.stat b{font-family:var(--display);font-size:1.7rem;font-weight:700}
+.pos{color:var(--pitch)}.neg{color:var(--red)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px;margin-bottom:26px}
+.chart{position:relative}
+.chart svg{width:100%;height:auto;display:block}
+.empty{color:var(--muted);text-align:center;padding:50px 10px}
+.formula{font-family:'Inter',system-ui,sans-serif;font-weight:700;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px 20px;color:#fff;font-size:1.05rem;line-height:2.1;overflow-x:auto;letter-spacing:.01em}
+.formula em{color:var(--pitch);font-style:normal;font-weight:800}
+.formula .note{color:var(--muted);font-weight:500;font-size:.88rem}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.cols .card{margin-bottom:0}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc label{display:block;font-size:.76rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.calc input,.calc select{width:100%;margin-top:4px;background:var(--bg);color:var(--chalk);border:1px solid var(--line);border-radius:8px;padding:10px;font:inherit}
+.calc-out{margin-top:16px;padding:14px;border:1px solid var(--pitch-dim);border-radius:10px;font-size:.95rem}
+.calc-out b{color:var(--pitch)}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th,td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;font-weight:500}
+th:first-child,td:first-child,th:nth-child(2),td:nth-child(2){text-align:left}
+.tbl{overflow-x:auto;margin-top:26px}
+footer{border-top:1px solid var(--line);padding:30px 24px;background:var(--bg-2);color:var(--muted);font-size:.82rem;text-align:center}
+@media(max-width:900px){.stats{grid-template-columns:repeat(3,1fr)}.cols{grid-template-columns:1fr}}
+@media(max-width:640px){
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--bg-2);border-bottom:1px solid var(--line);flex-direction:column;padding:20px;gap:18px}
+  .nav-links.open{display:flex}.burger{display:block}
+}
+</style>
+</head>
+<body>
+<header>
+  <nav class="nav">
+    <a class="logo" href="index.html" aria-label="PitchEdge">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="#2fbf71" stroke-width="1.6"/><path d="M12 7.2 15.6 9.8 14.2 14H9.8L8.4 9.8Z" stroke="#e8edf2" stroke-width="1.3" fill="none"/><path d="M12 2v5.2M15.6 9.8 20.8 8M14.2 14l3.2 4.4M9.8 14 6.6 18.4M8.4 9.8 3.2 8" stroke="#e8edf2" stroke-width="1" opacity=".7"/></svg>
+      Pitch<b>Edge</b>
+    </a>
+    <button class="burger" aria-label="Menu" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+    <div class="nav-links">
+      <a href="index.html#plans"><span class="lang-el">Συνδρομές</span><span class="lang-en">Plans</span></a>
+      <a href="bankroll.html" style="color:var(--pitch);font-weight:600"><span class="lang-el">Ταμείο</span><span class="lang-en">Bankroll</span></a>
+      <a href="members.html"><span class="lang-el">Περιοχή Μελών</span><span class="lang-en">Members</span></a>
+      <button class="lang-btn" id="langBtn" onclick="toggleLang()">EN</button>
+    </div>
+  </nav>
+</header>
+
+<main>
+  <div class="eyebrow"><span class="lang-el">Δημόσιο Track Record</span><span class="lang-en">Public Track Record</span></div>
+  <h1><span class="lang-el">Το Ταμείο μας</span><span class="lang-en">Our Bankroll</span></h1>
+  <p class="lead">
+    <span class="lang-el">Η εξέλιξη του ταμείου μας ανά units που παίχτηκαν. Κάθε επιλογή καταγράφεται πριν την έναρξη και όλα τα ποσά είναι σε μονάδες (units).</span>
+    <span class="lang-en">Our bankroll evolution by units played. Every pick is logged before kick-off and all figures are in units.</span>
+  </p>
+
+  <div class="tools">
+    <button class="btn" id="demoBtn" onclick="toggleDemo()"><span class="lang-el">Προβολή δείγματος</span><span class="lang-en">Show sample</span></button>
+    <span class="tag" id="demoTag"><span class="lang-el">ΔΕΙΓΜΑ — όχι πραγματικά δεδομένα</span><span class="lang-en">SAMPLE — not real data</span></span>
+  </div>
+
+  <p class="lead" id="sheetErr" style="display:none;color:var(--red)"><span class="lang-el">Δεν ήταν δυνατή η φόρτωση των δεδομένων. Δοκίμασε ξανά σε λίγο.</span><span class="lang-en">Could not load the data. Please try again shortly.</span></p>
+  <div class="stats" id="stats"></div>
+
+  <div class="card">
+    <h2><span class="lang-el">Ταμείο ανά Units Played</span><span class="lang-en">Bankroll by Units Played</span></h2>
+    <div class="chart" id="chart"></div>
+  </div>
+
+  <div class="cols">
+    <div class="card">
+      <h2><span class="lang-el">Η Φόρμουλα</span><span class="lang-en">The Formula</span></h2>
+      <div class="formula">
+        <em>P</em> = stake × (odds − 1)&nbsp;&nbsp;<span class="note">// <span class="lang-el">κερδισμένο</span><span class="lang-en">win</span></span><br>
+        <em>P</em> = − stake&nbsp;&nbsp;<span class="note">// <span class="lang-el">χαμένο</span><span class="lang-en">loss</span></span><br>
+        <em>P</em> = 0&nbsp;&nbsp;<span class="note">// push</span><br>
+        <em>Units Played</em> = Σ stake<br>
+        <em>Bankroll</em> = Start + Σ P<br>
+        <em>Yield %</em> = Σ P ÷ Units Played × 100<br>
+        <em>Drawdown</em> = peak − current
+      </div>
+    </div>
+    <div class="card">
+      <h2><span class="lang-el">Υπολογιστής Ταμείου</span><span class="lang-en">Bankroll Calculator</span></h2>
+      <div class="calc">
+        <label><span class="lang-el">Αρχικό ταμείο (units)</span><span class="lang-en">Start bankroll (units)</span><input id="cStart" type="number" value="100" min="1" step="any"></label>
+        <label>Units played<input id="cPlayed" type="number" value="200" min="0" step="any"></label>
+        <label>Yield %<input id="cYield" type="number" value="5" step="any"></label>
+        <label><span class="lang-el">Μέση απόδοση</span><span class="lang-en">Avg. odds</span><input id="cOdds" type="number" value="1.9" min="1.01" step="any"></label>
+      </div>
+      <div class="calc-out" id="calcOut"></div>
+    </div>
+  </div>
+
+  <div class="tbl card" id="tblWrap" style="display:none">
+    <h2><span class="lang-el">Καταγραφή Στοιχημάτων</span><span class="lang-en">Bet Log</span></h2>
+    <table><thead><tr><th>#</th><th><span class="lang-el">Αγώνας</span><span class="lang-en">Match</span></th><th>Odds</th><th>Stake</th><th>P (u)</th><th><span class="lang-el">Ταμείο</span><span class="lang-en">Bankroll</span></th></tr></thead><tbody id="tbody"></tbody></table>
+  </div>
+</main>
+
+<footer>
+  <span class="lang-el">Όλα τα ποσά σε μονάδες (units). Το παρελθόν δεν εγγυάται μελλοντικά αποτελέσματα. 18+</span>
+  <span class="lang-en">All figures in units. Past performance does not guarantee future results. 18+</span>
+</footer>
+
+<script>
+function toggleLang(){
+  const en=document.body.classList.toggle("en");
+  document.getElementById("langBtn").textContent=en?"ΕΛ":"EN";
+  document.documentElement.lang=en?"en":"el";
+  render();
+}
+
+/* =====================================================
+   ΔΕΔΟΜΕΝΑ — πρόσθεσε κάθε στοίχημα εδώ:
+   { match:"Ομάδα Α - Ομάδα Β", odds:1.90, stake:1, result:"W" | "L" | "P" }
+   ===================================================== */
+const BETS = [];
+
+/* =====================================================
+   GOOGLE SHEETS — βάλε εδώ το link του δημοσιευμένου CSV
+   (Αρχείο → Κοινή χρήση → Δημοσίευση στον ιστό → CSV).
+   Στήλες: match | odds | stake | result (W / L / P) — ή με επικεφαλίδες, σε όποια σειρά
+   Αν μείνει κενό, χρησιμοποιείται η λίστα BETS παραπάνω.
+   ===================================================== */
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWL-7E9hLe7BsUtTaZeVWudEwvDMMFTfPxojOazKMq7hPjwdRASP5Y59wb-Rdh5xJlSYh4Uwk5C_Gh/pub?gid=0&single=true&output=csv";
+
+const START = 100;
+const SAMPLE = Array.from({length:60},(_,i)=>{
+  const odds=+(1.7+((i*37)%9)/10).toFixed(2);
+  const win=((i*7+3)%11)<6;
+  return {match:"Sample "+(i+1),odds,stake:(i%4===0?2:1),result:win?"W":"L"};
+});
+let live=BETS, sheetError=false;
+function parseCSV(t){
+  const rows=[];let row=[],cur="",q=false;
+  for(let i=0;i<t.length;i++){
+    const c=t[i];
+    if(q){ if(c==='"'){ if(t[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===","){row.push(cur);cur="";}
+    else if(c==="\n"||c==="\r"){ if(c==="\r"&&t[i+1]==="\n")i++; row.push(cur);cur=""; if(row.some(x=>x.trim()))rows.push(row); row=[]; }
+    else cur+=c;
+  }
+  row.push(cur); if(row.some(x=>x.trim()))rows.push(row);
+  return rows;
+}
+function sheetToBets(text){
+  const rows=parseCSV(text), out=[];
+  const map={W:"W",L:"L",P:"P","Ν":"W","Η":"L","Π":"P","WIN":"W","LOSS":"L","PUSH":"P"};
+  // default columns A-D; if the first row has recognizable headers, use them
+  let ix={match:0,odds:1,stake:2,result:3};
+  const find=(h,re)=>h.findIndex(c=>re.test(String(c).trim().toLowerCase()));
+  if(rows.length){
+    const h=rows[0], m=find(h,/match|αγων|αγών|game|event/), o=find(h,/odds|αποδ/), st=find(h,/stake|units|μον/), r=find(h,/result|αποτ|res/);
+    if(o>=0&&st>=0&&r>=0) ix={match:m>=0?m:0,odds:o,stake:st,result:r};
+  }
+  rows.forEach(r=>{
+    const odds=parseFloat(String(r[ix.odds]).replace(",",".")), stake=parseFloat(String(r[ix.stake]).replace(",","."));
+    const res=map[String(r[ix.result]||"").trim().toUpperCase()];
+    if(odds>1&&stake>0&&res) out.push({match:String(r[ix.match]||"").trim(),odds,stake,result:res});
+  });
+  return out;
+}
+async function loadSheet(){
+  if(!SHEET_CSV_URL) return;
+  try{
+    const r=await fetch(SHEET_CSV_URL,{cache:"no-store"});
+    if(!r.ok) throw new Error(r.status);
+    live=sheetToBets(await r.text());
+  }catch(e){sheetError=true;}
+  render();
+}
+let demo=false;
+const $=id=>document.getElementById(id);
+const isEn=()=>document.body.classList.contains("en");
+const f=(n,d=2)=>(n>0?"+":"")+n.toFixed(d);
+const cls=n=>n>0?"pos":n<0?"neg":"";
+
+function compute(bets){
+  let played=0,bank=START,peak=START,dd=0,wins=0,settled=0,pts=[{x:0,y:START}],rows=[];
+  bets.forEach((b,i)=>{
+    const p=b.result==="W"?b.stake*(b.odds-1):b.result==="L"?-b.stake:0;
+    played+=b.stake;bank+=p;peak=Math.max(peak,bank);dd=Math.max(dd,peak-bank);
+    if(b.result!=="P"){settled++;if(b.result==="W")wins++;}
+    pts.push({x:played,y:bank});rows.push({i:i+1,b,p,bank});
+  });
+  const profit=bank-START;
+  return {played,bank,profit,yieldPct:played?profit/played*100:0,winRate:settled?wins/settled*100:0,dd,pts,rows};
+}
+
+function render(){
+  const d=compute(demo?SAMPLE:live), en=isEn();
+  $("demoTag").classList.toggle("on",demo);
+  $("sheetErr").style.display=sheetError&&!demo?"block":"none";
+  $("stats").innerHTML=[
+    [en?"Bankroll":"Ταμείο",d.bank.toFixed(2)+"u",cls(d.profit)],
+    [en?"Profit":"Κέρδος",f(d.profit)+"u",cls(d.profit)],
+    ["Units played",d.played.toFixed(1),""],
+    ["Yield",f(d.yieldPct,1)+"%",cls(d.yieldPct)],
+    [en?"Win rate":"Ποσοστό νικών",d.winRate.toFixed(1)+"%",""],
+    ["Max drawdown","-"+d.dd.toFixed(2)+"u",d.dd>0?"neg":""]
+  ].map(s=>`<div class="stat"><small>${s[0]}</small><b class="${s[2]}">${s[1]}</b></div>`).join("");
+  drawChart(d.pts);
+  $("tblWrap").style.display=d.rows.length?"block":"none";
+  $("tbody").innerHTML=d.rows.slice().reverse().map(r=>`<tr><td>${r.i}</td><td>${r.b.match}</td><td>${r.b.odds.toFixed(2)}</td><td>${r.b.stake}</td><td class="${cls(r.p)}">${f(r.p)}</td><td>${r.bank.toFixed(2)}</td></tr>`).join("");
+  calc();
+}
+
+function drawChart(pts){
+  const c=$("chart"),en=isEn();
+  if(pts.length<2){c.innerHTML=`<div class="empty">${en?"No bets logged yet — the service is launching. The curve will appear here with the first tip.":"Δεν έχουν καταγραφεί ακόμη στοιχήματα — η υπηρεσία ξεκινά. Η καμπύλη θα εμφανιστεί εδώ με το πρώτο προγνωστικό."}</div>`;return;}
+  const W=1000,H=360,L=56,R=16,T=16,B=40;
+  const xs=pts.map(p=>p.x),ys=pts.map(p=>p.y);
+  const xMax=Math.max(...xs)||1;
+  let yMin=Math.min(...ys,START),yMax=Math.max(...ys,START);
+  const pad=(yMax-yMin)*.12||1;yMin-=pad;yMax+=pad;
+  const X=x=>L+x/xMax*(W-L-R),Y=y=>T+(yMax-y)/(yMax-yMin)*(H-T-B);
+  const line=pts.map((p,i)=>(i?"L":"M")+X(p.x).toFixed(1)+" "+Y(p.y).toFixed(1)).join(" ");
+  const last=pts[pts.length-1],up=last.y>=START,col=up?"#2fbf71":"#e05b5b";
+  let grid="";
+  for(let i=0;i<=4;i++){const v=yMin+(yMax-yMin)*i/4,y=Y(v);grid+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#223041"/><text x="${L-8}" y="${y+4}" fill="#8fa0b3" font-size="12" text-anchor="end">${v.toFixed(yMax-yMin<8?1:0)}</text>`;}
+  for(let i=0;i<=5;i++){const v=xMax*i/5;grid+=`<text x="${X(v)}" y="${H-14}" fill="#8fa0b3" font-size="12" text-anchor="middle">${v.toFixed(0)}</text>`;}
+  c.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bankroll chart">${grid}
+    <line x1="${L}" x2="${W-R}" y1="${Y(START)}" y2="${Y(START)}" stroke="#8fa0b3" stroke-dasharray="5 5" opacity=".6"/>
+    <path d="${line} L${X(last.x)} ${Y(yMin)} L${X(0)} ${Y(yMin)}Z" fill="${col}" opacity=".12"/>
+    <path d="${line}" fill="none" stroke="${col}" stroke-width="2.6" stroke-linejoin="round"/>
+    <circle cx="${X(last.x)}" cy="${Y(last.y)}" r="5" fill="${col}"/>
+    <text x="${W-R}" y="${H-2}" fill="#8fa0b3" font-size="12" text-anchor="end">Units played</text></svg>`;
+}
+
+function calc(){
+  const s=+$("cStart").value,p=+$("cPlayed").value,y=+$("cYield").value,o=+$("cOdds").value,en=isEn();
+  const profit=p*y/100,end=s+profit;
+  const be=o>1?100/o:NaN, wr=o>1?(1+y/100)/o*100:NaN;
+  $("calcOut").innerHTML=(en?"Expected bankroll":"Αναμενόμενο ταμείο")+`: <b>${end.toFixed(2)}u</b> (${f(profit)}u)<br>`+
+    (en?"Required win rate at these odds":"Απαιτούμενο ποσοστό νικών με αυτές τις αποδόσεις")+`: <b>${isNaN(wr)?"–":wr.toFixed(1)+"%"}</b> <span style="color:var(--muted)">(break-even ${isNaN(be)?"–":be.toFixed(1)+"%"})</span>`;
+}
+function toggleDemo(){demo=!demo;render();}
+["cStart","cPlayed","cYield","cOdds"].forEach(id=>$(id).addEventListener("input",calc));
+render();
+loadSheet();
+</script>
+</body>
+</html>
