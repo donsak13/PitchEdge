@@ -182,10 +182,10 @@ const BETS = [];
 /* =====================================================
    GOOGLE SHEETS — βάλε εδώ το link του δημοσιευμένου CSV
    (Αρχείο → Κοινή χρήση → Δημοσίευση στον ιστό → CSV).
-   Στήλες: match | odds | stake | result (W / L / P)
+   Στήλες: match | odds | stake | result (W / L / P) — ή με επικεφαλίδες, σε όποια σειρά
    Αν μείνει κενό, χρησιμοποιείται η λίστα BETS παραπάνω.
    ===================================================== */
-const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWL-7E9hLe7BsUtTaZeVWudEwvDMMFTfPxojOazKMq7hPjwdRASP5Y59wb-Rdh5xJlSYh4Uwk5C_Gh/pub?gid=0const SHEET_CSV_URL = "";single=trueconst SHEET_CSV_URL = "";output=csv";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTWL-7E9hLe7BsUtTaZeVWudEwvDMMFTfPxojOazKMq7hPjwdRASP5Y59wb-Rdh5xJlSYh4Uwk5C_Gh/pub?gid=0&single=true&output=csv";
 
 const START = 100;
 const SAMPLE = Array.from({length:60},(_,i)=>{
@@ -209,11 +209,18 @@ function parseCSV(t){
 }
 function sheetToBets(text){
   const rows=parseCSV(text), out=[];
-  const map={W:"W",L:"L",P:"P","Ν":"W","Η":"L","Π":"P"};
+  const map={W:"W",L:"L",P:"P","Ν":"W","Η":"L","Π":"P","WIN":"W","LOSS":"L","PUSH":"P"};
+  // default columns A-D; if the first row has recognizable headers, use them
+  let ix={match:0,odds:1,stake:2,result:3};
+  const find=(h,re)=>h.findIndex(c=>re.test(String(c).trim().toLowerCase()));
+  if(rows.length){
+    const h=rows[0], m=find(h,/match|αγων|αγών|game|event/), o=find(h,/odds|αποδ/), st=find(h,/stake|units|μον/), r=find(h,/result|αποτ|res/);
+    if(o>=0&&st>=0&&r>=0) ix={match:m>=0?m:0,odds:o,stake:st,result:r};
+  }
   rows.forEach(r=>{
-    const odds=parseFloat(String(r[1]).replace(",",".")), stake=parseFloat(String(r[2]).replace(",","."));
-    const res=map[String(r[3]||"").trim().toUpperCase()];
-    if(odds>1&&stake>0&&res) out.push({match:r[0].trim(),odds,stake,result:res});
+    const odds=parseFloat(String(r[ix.odds]).replace(",",".")), stake=parseFloat(String(r[ix.stake]).replace(",","."));
+    const res=map[String(r[ix.result]||"").trim().toUpperCase()];
+    if(odds>1&&stake>0&&res) out.push({match:String(r[ix.match]||"").trim(),odds,stake,result:res});
   });
   return out;
 }
@@ -274,7 +281,7 @@ function drawChart(pts){
   const line=pts.map((p,i)=>(i?"L":"M")+X(p.x).toFixed(1)+" "+Y(p.y).toFixed(1)).join(" ");
   const last=pts[pts.length-1],up=last.y>=START,col=up?"#2fbf71":"#e05b5b";
   let grid="";
-  for(let i=0;i<=4;i++){const v=yMin+(yMax-yMin)*i/4,y=Y(v);grid+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#223041"/><text x="${L-8}" y="${y+4}" fill="#8fa0b3" font-size="12" text-anchor="end">${v.toFixed(0)}</text>`;}
+  for(let i=0;i<=4;i++){const v=yMin+(yMax-yMin)*i/4,y=Y(v);grid+=`<line x1="${L}" x2="${W-R}" y1="${y}" y2="${y}" stroke="#223041"/><text x="${L-8}" y="${y+4}" fill="#8fa0b3" font-size="12" text-anchor="end">${v.toFixed(yMax-yMin<8?1:0)}</text>`;}
   for(let i=0;i<=5;i++){const v=xMax*i/5;grid+=`<text x="${X(v)}" y="${H-14}" fill="#8fa0b3" font-size="12" text-anchor="middle">${v.toFixed(0)}</text>`;}
   c.innerHTML=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Bankroll chart">${grid}
     <line x1="${L}" x2="${W-R}" y1="${Y(START)}" y2="${Y(START)}" stroke="#8fa0b3" stroke-dasharray="5 5" opacity=".6"/>
