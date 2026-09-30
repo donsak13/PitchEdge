@@ -120,6 +120,7 @@ footer{border-top:1px solid var(--line);padding:30px 24px;background:var(--bg-2)
     <span class="tag" id="demoTag"><span class="lang-el">ΔΕΙΓΜΑ — όχι πραγματικά δεδομένα</span><span class="lang-en">SAMPLE — not real data</span></span>
   </div>
 
+  <p class="lead" id="sheetErr" style="display:none;color:var(--red)"><span class="lang-el">Δεν ήταν δυνατή η φόρτωση των δεδομένων. Δοκίμασε ξανά σε λίγο.</span><span class="lang-en">Could not load the data. Please try again shortly.</span></p>
   <div class="stats" id="stats"></div>
 
   <div class="card">
@@ -177,12 +178,53 @@ function toggleLang(){
    ===================================================== */
 const BETS = [];
 
+/* =====================================================
+   GOOGLE SHEETS — βάλε εδώ το link του δημοσιευμένου CSV
+   (Αρχείο → Κοινή χρήση → Δημοσίευση στον ιστό → CSV).
+   Στήλες: match | odds | stake | result (W / L / P)
+   Αν μείνει κενό, χρησιμοποιείται η λίστα BETS παραπάνω.
+   ===================================================== */
+const SHEET_CSV_URL = "";
+
 const START = 100;
 const SAMPLE = Array.from({length:60},(_,i)=>{
   const odds=+(1.7+((i*37)%9)/10).toFixed(2);
   const win=((i*7+3)%11)<6;
   return {match:"Sample "+(i+1),odds,stake:(i%4===0?2:1),result:win?"W":"L"};
 });
+let live=BETS, sheetError=false;
+function parseCSV(t){
+  const rows=[];let row=[],cur="",q=false;
+  for(let i=0;i<t.length;i++){
+    const c=t[i];
+    if(q){ if(c==='"'){ if(t[i+1]==='"'){cur+='"';i++;} else q=false; } else cur+=c; }
+    else if(c==='"') q=true;
+    else if(c===","){row.push(cur);cur="";}
+    else if(c==="\n"||c==="\r"){ if(c==="\r"&&t[i+1]==="\n")i++; row.push(cur);cur=""; if(row.some(x=>x.trim()))rows.push(row); row=[]; }
+    else cur+=c;
+  }
+  row.push(cur); if(row.some(x=>x.trim()))rows.push(row);
+  return rows;
+}
+function sheetToBets(text){
+  const rows=parseCSV(text), out=[];
+  const map={W:"W",L:"L",P:"P","Ν":"W","Η":"L","Π":"P"};
+  rows.forEach(r=>{
+    const odds=parseFloat(String(r[1]).replace(",",".")), stake=parseFloat(String(r[2]).replace(",","."));
+    const res=map[String(r[3]||"").trim().toUpperCase()];
+    if(odds>1&&stake>0&&res) out.push({match:r[0].trim(),odds,stake,result:res});
+  });
+  return out;
+}
+async function loadSheet(){
+  if(!SHEET_CSV_URL) return;
+  try{
+    const r=await fetch(SHEET_CSV_URL,{cache:"no-store"});
+    if(!r.ok) throw new Error(r.status);
+    live=sheetToBets(await r.text());
+  }catch(e){sheetError=true;}
+  render();
+}
 let demo=false;
 const $=id=>document.getElementById(id);
 const isEn=()=>document.body.classList.contains("en");
@@ -202,8 +244,9 @@ function compute(bets){
 }
 
 function render(){
-  const d=compute(demo?SAMPLE:BETS), en=isEn();
+  const d=compute(demo?SAMPLE:live), en=isEn();
   $("demoTag").classList.toggle("on",demo);
+  $("sheetErr").style.display=sheetError&&!demo?"block":"none";
   $("stats").innerHTML=[
     [en?"Bankroll":"Ταμείο",d.bank.toFixed(2)+"u",cls(d.profit)],
     [en?"Profit":"Κέρδος",f(d.profit)+"u",cls(d.profit)],
@@ -250,6 +293,7 @@ function calc(){
 function toggleDemo(){demo=!demo;render();}
 ["cStart","cPlayed","cYield","cOdds"].forEach(id=>$(id).addEventListener("input",calc));
 render();
+loadSheet();
 </script>
 </body>
 </html>
